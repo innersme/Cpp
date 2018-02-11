@@ -7,12 +7,42 @@
 //
 
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 enum {MAKE = 1, DEPOSIT, WITHDRAW, PRINT, EXIT};
 
-class
+// 계좌번호 입력 순서
+int order = 0;
 
+class Account
+{
+public:
+    int AccountN[12];
+    char Name[10];
+    int balance[10];
+};
+
+void MakeAccount()
+{
+    cout << "[입 금]"<< endl;
+    
+}
+
+void Deposit()
+{
+    
+}
+
+void WithDraw()
+{
+    
+}
+
+void Print()
+{
+    
+}
 void Menu()
 {
     cout <<" ----Menu-----" << endl;
@@ -26,7 +56,37 @@ void Menu()
 int main()
 {
     int select;
-    Menu();
-    
+
+    while (1) {
+        Menu();
+        cout << "선택: ";
+        cin >> select;
+        cout << endl;
+        
+        switch (select) {
+            case MAKE:
+                MakeAccount();
+                break;
+                
+            case DEPOSIT:
+                Deposit();
+                break;
+                
+            case WITHDRAW:
+                WithDraw();
+                break;
+                
+            case PRINT:
+                Print();
+                break;
+                
+            case EXIT:
+                return 0;
+                
+            default:
+                cout << "다시 입력하세요. "<< endl;
+                break;
+        }
+    }
     return 0;
 }
