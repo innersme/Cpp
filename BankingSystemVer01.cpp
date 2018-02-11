@@ -12,36 +12,95 @@ using namespace std;
 
 enum {MAKE = 1, DEPOSIT, WITHDRAW, PRINT, EXIT};
 
-// 계좌번호 입력 순서
-int order = 0;
-
 class Account
 {
 public:
-    int AccountN[12];
-    char Name[10];
-    int balance[10];
+    int AccountN;
+    string Name;
+    int balance;
 };
+
+// 계좌번호 입력 순서
+int order = 0;
+// 입력 Account
+Account Acc[100];
 
 void MakeAccount()
 {
-    cout << "[입 금]"<< endl;
-    
+    cout << "[계좌개설]"<< endl;
+    cout << "계좌ID:" ;
+    cin >> Acc[order].AccountN;
+    cout << "이 름:";
+    cin >> Acc[order].Name;
+    cout << "입금액:";
+    cin >> Acc[order++].balance;
 }
 
 void Deposit()
 {
-    
+    int i = 0; bool conti;
+    int searchID; int inpMoney;
+    cout << "[입 금]" <<endl;
+    while (1) {
+        cout << "계좌ID: ";
+        cin >> searchID;
+        
+        while(1)
+        {
+            if (Acc[i].AccountN == searchID ) {
+                conti = true;
+                break;
+            }
+            else if (i == order)
+            {
+                cout <<"계좌ID를 찾을 수 없습니다. 다시 입력해주세요." << endl;
+                conti = false;
+                break;
+            }
+            i++;
+        }
+        if (conti == true)
+            break;
+    }
+
+    cout << "입금액: ";
+    cin >> inpMoney;
+    Acc[i].balance+=inpMoney;
+    cout << "입금완료";
 }
 
 void WithDraw()
 {
-    
+    int i = 0;
+    int searchID; int outMoney;
+    cout << "[출 금]" <<endl;
+    cout << "계좌ID: ";
+    cin >> searchID;
+    while (1) {
+        if (Acc[i].AccountN == searchID ) {
+            i++;
+            break;
+        }
+        else if (i == order)
+        {
+            cout <<"계좌ID를 찾을 수 없습니다. 다시 입력해주세요." << endl;
+        }
+    }
+    cout << "출금액: ";
+    cin >> outMoney;
+    Acc[i].balance+=outMoney;
+    cout << "출금완료";
 }
 
 void Print()
 {
-    
+    for (int i = 0 ; i < order; i++) {
+        cout << "ID " << i+1 << "order" << endl;
+        cout << "계좌ID: "<< Acc[i].AccountN;
+        cout << "이 름:" << Acc[i].Name;
+        cout << "잔 액:" << Acc[i].balance;
+        cout <<endl;
+    }
 }
 void Menu()
 {
