@@ -1,8 +1,8 @@
 //
-//  OneOpndOverloading.cpp
+//  PostOpndOverloading.cpp
 //  Cpp
 //
-//  Created by MJMacBook on 2018. 2. 12..
+//  Created by MJMacBook on 2018. 2. 20..
 //  Copyright © 2018년 MJMacBook. All rights reserved.
 //
 
@@ -20,6 +20,7 @@ public:
     {
         cout << '[' << xpos << ", " << ypos << ']' <<endl;
     }
+    
     Point& operator++()
     {
         xpos += 1;
@@ -27,28 +28,44 @@ public:
         return *this;
     }
     
+    const Point operator++(int) // 후위증가
+    {
+        const Point retobj(xpos, ypos);
+        xpos += 1;
+        ypos += 1;
+        return retobj;
+    }
+    
     friend Point& operator--(Point &ref);
+    friend const Point operator--(Point &ref, int);
 };
 
-Point& operator--(Point &ref)
+Point& operator--(Point &ref) // 전위감소
 {
     ref.xpos -= 1;
     ref.ypos -= 1;
     return ref;
 }
 
+const Point operator--(Point &ref, int) // 후위감소
+{
+    const Point retobj(ref);
+    ref.xpos -=1;
+    ref.ypos -=1;
+    return retobj;
+}
+
 int main()
 {
-    Point pos(1, 2);
-    ++pos;
-    pos.ShowPosition();
-    --pos;
-    pos.ShowPosition();
-    
-    ++(++pos);
-    pos.ShowPosition();
-    --(--pos);
+    Point pos(3, 5);
+    Point cpy;
+    cpy = pos--;
+    cpy.ShowPosition();
     pos.ShowPosition();
     
+    cpy = pos++;
+    cpy.ShowPosition();
+    pos.ShowPosition();
     return 0;
 }
+
